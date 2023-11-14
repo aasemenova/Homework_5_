@@ -64,8 +64,14 @@ public class Student {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int numberOfParticipants = 3;
         List<Student> students = new ArrayList<>();
+
+        System.out.println("Введите количество студентов: ");
+        int numberOfParticipants = scanner.nextInt();
+        if (numberOfParticipants < 3) {
+            System.out.println("Недостаточное количество студентов для определения победителей.");
+            System.exit(0);
+        }
 
         for (int i = 0; i < numberOfParticipants; i++) {
             System.out.println("Введите имя студента:");
@@ -76,12 +82,21 @@ public class Student {
             String patronymic = scanner.next();
             System.out.println("Введите баллы студента через пробел:");
             scanner.nextLine();
-            List<Integer> scoreList = Arrays.stream(scanner.nextLine().split(" "))
-                    .map(Integer::parseInt)
-                    .collect(Collectors.toList());
+            List<Integer> scoreList = new ArrayList<>();
+            boolean validInput = false;
+            while (!validInput) {
+                try {
+                    scoreList = Arrays.stream(scanner.nextLine().split(" "))
+                            .map(Integer::parseInt)
+                            .collect(Collectors.toList());
+                    validInput = true;
+                } catch (NumberFormatException e) {
+                    System.out.println("Ошибка: введен символ вместо цифры в баллах студента.");
+                    System.out.println("Пожалуйста, введите баллы студента заново:");
+                }
+            }
             students.add(new Student(name, surname, patronymic, scoreList));
         }
-
         Student.findWinners(students);
     }
 }

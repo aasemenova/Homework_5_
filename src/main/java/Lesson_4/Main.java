@@ -26,7 +26,22 @@ public class Main {
                     System.out.println("Введите имя и фамилию автора: ");
                     String author = scanner.nextLine();
                     System.out.println("Введите год издания: ");
-                    int year = Integer.parseInt(scanner.nextLine());
+                    int year = 0;
+                    boolean validInput = false;
+                    while (!validInput) {
+                        try {
+                            year = Integer.parseInt(scanner.nextLine());
+                            if (year > 0) {
+                                validInput = true;
+                            } else {
+                                System.out.println("Год издания должен быть положительным числом.");
+                                System.out.println("Пожалуйста, введите год издания заново:");
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Ошибка: введен символ вместо числа в годе издания.");
+                            System.out.println("Пожалуйста, введите год издания заново:");
+                        }
+                    }
                     System.out.println("Введите краткое описание книги: ");
                     String description = scanner.nextLine();
                     Book newBook = new Book(bookId, title, genre, author, year, description);

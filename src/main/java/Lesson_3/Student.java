@@ -74,7 +74,7 @@ public class Student {
             String surname = scanner.next();
             System.out.println("Введите отчество студента:");
             String patronymic = scanner.next();
-            System.out.println("Введите баллы студента:");
+            System.out.println("Введите баллы студента через пробел:");
             scanner.nextLine();
             List<Integer> scoreList = Arrays.stream(scanner.nextLine().split(" "))
                     .map(Integer::parseInt)
